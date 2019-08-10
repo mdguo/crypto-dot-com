@@ -1,5 +1,6 @@
 {
-  "name": "my-app",
+  "name": "crypto-dot-com",
+  "author": "Michael Guo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
