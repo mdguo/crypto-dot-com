@@ -9,17 +9,42 @@ function network() {
         }
     })
 
-    function getMarketCap() {
-        return '';
+    function getMarketCap(options) {
+        // limit: number of coins get back paginated by {page}
+        // page: pagination
+        // tsyms: currency symbol to convert into
+
+        let {
+            limit = 10,
+            page = 0,
+            tsym = 'USD'
+        } = options
+
+        return XHR.get('/data/top/mktcapfull', {
+            params: {
+                limit,
+                page,
+                tsym
+            }
+        }).then(response => {
+            return response
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
-    function getMultiSymbols() {
+    function getMultiSymbols(options) {
         // fsyms: Comma separated cryptocurrency symbols list
         // tsyms: Comma separated cryptocurrency symbols list to convert into
+        let {
+            fsyms,
+            tsyms = 'USD'
+        } = options
+
         return XHR.get('/data/pricemultifull', {
             params: {
-                fsyms: 'BTC',
-                tsyms: 'USD'
+                fsyms,
+                tsyms
             }
         }).then(response => {
             console.log(response)

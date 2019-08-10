@@ -6,7 +6,11 @@ import * as serviceWorker from './serviceWorker';
 import network from './helper/network'
 
 let test = network()
-test.getMultiSymbols()
+let opts = {
+    limit: 15,
+    tsyms: 'EUR'
+}
+test.getMarketCap(opts)
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
