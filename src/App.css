@@ -31,3 +31,12 @@
     transform: rotate(360deg);
   }
 }
+
+thead th {
+  cursor: pointer;
+  border-radius: 0.5rem;
+}
+
+thead th:hover {
+  background-color: lightgrey;
+}
