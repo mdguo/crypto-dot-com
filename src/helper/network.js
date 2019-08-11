@@ -1,4 +1,5 @@
 import axios from 'axios'
+import * as data from './data.json'
 
 function network() {
     let XHR = axios.create({
@@ -20,17 +21,20 @@ function network() {
             tsym = 'USD'
         } = options
 
-        return XHR.get('/data/top/mktcapfull', {
-            params: {
-                limit,
-                page,
-                tsym
-            }
-        }).then(response => {
-            return response
-        }).catch(error => {
-            console.log(error)
-        })
+        // temporaryly return static data to save API calls
+        return data ? data.default : {};
+
+        // return XHR.get('/data/top/mktcapfull', {
+        //     params: {
+        //         limit,
+        //         page,
+        //         tsym
+        //     }
+        // }).then(response => {
+        //     return response
+        // }).catch(error => {
+        //     console.log(error)
+        // })
     }
 
     function getMultiSymbols(options) {
@@ -60,4 +64,5 @@ function network() {
     }
 }
 
-export default network
+let query = network()
+export default query;

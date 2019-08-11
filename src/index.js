@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './bootstrap.min.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import network from './helper/network'
+import query from './helper/network'
 
-let test = network()
 let opts = {
     limit: 15,
     tsyms: 'EUR'
 }
-test.getMarketCap(opts)
+console.log(query.getMarketCap(opts))
+
+// TODO: for today, setup main datagrid
+// TODO: localStorage for tracked currency
+// TODO: email alerts
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
