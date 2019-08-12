@@ -3,7 +3,7 @@
 let currency = 'USD'
 
 // datagrid column names plus some symbols
-export let columns = {
+export let columnMap = {
     short: 'CoinInfo.Name',
     name: 'CoinInfo.FullName',
     price: `RAW.${currency}.PRICE`,

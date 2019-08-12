@@ -1,7 +1,7 @@
 import React from 'react';
 import RowRenderer from './RowRenderer';
 import query from '../helper/network';
-import { columns, displayCols } from '../helper/collection';
+import { columnMap, displayCols } from '../helper/collection';
 import Table from 'react-bootstrap/Table';
 import _ from 'lodash';
 
@@ -9,42 +9,62 @@ class TableView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            rowsList: [],
-            sort: {
-                column: 'marketCap',
-                desc: true
-            }
+            data: {
+                collection: [],
+                columns: []
+            },
+            prevSort: ''
         }
     }
 
-    sortRows = (rows) => {
-        // takes in rows and sort object, return sorted rows
-        rows.sort()
+    sort = (columnName) => {
+        let newData = this.sortRows(this.state.data, columnName, this.state.prevSort)
+        this.setState({
+            data: newData,
+            prevSort: (this.state.prevSort == columnName) ? '' : columnName
+        })
+    }
 
-        // use _.orderBy
+    sortRows = (data, currSortCol, prevSortCol) => {
+        // console.log("now sorting: " + currSortCol + ", previously sorting: " + prevSortCol)
+        data.collection = this.sortCollection(data.collection, currSortCol, (currSortCol == prevSortCol))
+        return data
+    }
 
-        return rows
+    sortCollection = (collection, columnName, ascending) => {
+        let order = ascending ? 'asc' : 'desc'
+        return _.orderBy(collection, columnName, order)
     }
 
     // TODO: parameterize convertion currency, default USD for now
     componentDidMount() {
+        // data processing
         let response = query.getMarketCap({})
         
-        let data = response.Data.map(data => {
+        let collection = response.Data.map(datum => {
             let result = {}
-            Object.keys(columns).forEach(colName => {
-                result[colName] = _.get(data, columns[colName])
+            Object.keys(columnMap).forEach(colName => {
+                result[colName] = _.get(datum, columnMap[colName])
             })
             return result
         });
 
-        this.setState({
-            rowsList: data
-        })
+        let data = {
+            collection,
+            columns: displayCols
+        }
+
+        this.setState({ data })
     }
 
     render() {
-        let header = Object.keys(displayCols).map((col, idx) => <th key={idx}>{displayCols[col]}</th>)
+        let header = Object.keys(displayCols).map((col, idx) => {
+            // col is the data key
+            return <th key={idx}
+                onClick={this.sort.bind(this, col)}>
+                {displayCols[col]}
+            </th>
+        })
 
         return (<div>
             <Table striped>
@@ -55,7 +75,7 @@ class TableView extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                    <RowRenderer rows={this.state.rowsList} />
+                    <RowRenderer collection={this.state.data.collection} />
                 </tbody>
             </Table>
         </div>)
