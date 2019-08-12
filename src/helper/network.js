@@ -18,8 +18,12 @@ function network() {
         let {
             limit = 10,
             page = 0,
-            tsym = 'USD'
+            tsym
         } = options
+
+        if (!tsym) {
+            throw new Error('conversion currency is not set.')
+        }
 
         // temporaryly return static data to save API calls
         // return data ? Promise.resolve(data.default) : Promise.resolve({});

@@ -1,17 +1,14 @@
-
-// TODO: hook this up to UI somehow?
-let currency = 'USD'
-
-// datagrid column names plus some symbols
-export let columnMap = {
-    short: 'CoinInfo.Name',
-    name: 'CoinInfo.FullName',
-    price: `DISPLAY.${currency}.PRICE`,
-    supply: `DISPLAY.${currency}.SUPPLY`,
-    token: `DISPLAY.${currency}.FROMSYMBOL`,    // cryptocurrency symbol
-    market_cap: `DISPLAY.${currency}.MKTCAP`,
-    volume_24h: `DISPLAY.${currency}.TOTALVOLUME24HTO`,
-    symbol: `DISPLAY.${currency}.TOSYMBOL`      // selected currency symbol
+export let columnsMap = (currency) => {
+    return {
+        short: 'CoinInfo.Name',
+        name: 'CoinInfo.FullName',
+        price: `DISPLAY.${currency}.PRICE`,
+        supply: `DISPLAY.${currency}.SUPPLY`,
+        token: `DISPLAY.${currency}.FROMSYMBOL`,    // cryptocurrency symbol
+        market_cap: `DISPLAY.${currency}.MKTCAP`,
+        volume_24h: `DISPLAY.${currency}.TOTALVOLUME24HTO`,
+        symbol: `DISPLAY.${currency}.TOSYMBOL`      // selected currency symbol
+    }
 }
 
 export let displayCols = {

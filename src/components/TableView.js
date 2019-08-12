@@ -2,7 +2,7 @@ import React from 'react';
 import RowRenderer from './RowRenderer';
 import query from '../helper/network';
 import eventEmitter from '../helper/event';
-import { columnMap, displayCols, cellAlign } from '../helper/collection';
+import { columnsMap, displayCols, cellAlign } from '../helper/collection';
 import Table from 'react-bootstrap/Table';
 import _ from 'lodash';
 
@@ -42,10 +42,11 @@ class TableView extends React.Component {
 
     handleCurrencyChanged = (currency) => {
         if (currency && currency != this.state.currency) {
-            this.queryMarketCapData({
-                tsym: currency
-            }).then(data => {
-                this.setState({ data })
+            this.queryMarketCapData({tsym: currency}).then(data => {
+                this.setState({
+                    data,
+                    currency
+                })
             })
 
         }
@@ -53,7 +54,10 @@ class TableView extends React.Component {
 
     queryMarketCapData = (options) => {
         options = options || {}
+        let { tsym } = options
         return query.getMarketCap(options).then(response => {
+            // rebuild column mapping based on currency
+            let columnMap = columnsMap(tsym)
             let collection = response.Data.map(datum => {
                 let result = {}
                 Object.keys(columnMap).forEach(colName => {
@@ -71,7 +75,7 @@ class TableView extends React.Component {
     }
 
     componentDidMount() {
-        this.queryMarketCapData().then(data => {  
+        this.queryMarketCapData({tsym: this.state.currency}).then(data => {  
             this.setState({ data })
         })
     }
