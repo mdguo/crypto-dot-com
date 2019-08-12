@@ -1,7 +1,7 @@
 import React from 'react';
 import RowRenderer from './RowRenderer';
 import query from '../helper/network';
-import { columnMap, displayCols } from '../helper/collection';
+import { columnMap, displayCols, cellAlign } from '../helper/collection';
 import Table from 'react-bootstrap/Table';
 import _ from 'lodash';
 
@@ -60,7 +60,7 @@ class TableView extends React.Component {
     render() {
         let header = Object.keys(displayCols).map((col, idx) => {
             // col is the data key
-            return <th key={idx}
+            return <th key={idx} className={cellAlign[col]}
                 onClick={this.sort.bind(this, col)}>
                 {displayCols[col]}
             </th>
