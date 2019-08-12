@@ -1,6 +1,7 @@
 import React from 'react';
 import RowRenderer from './RowRenderer';
 import query from '../helper/network';
+import eventEmitter from '../helper/event';
 import { columnMap, displayCols, cellAlign } from '../helper/collection';
 import Table from 'react-bootstrap/Table';
 import _ from 'lodash';
@@ -13,8 +14,11 @@ class TableView extends React.Component {
                 collection: [],
                 columns: []
             },
-            prevSort: ''
+            prevSort: '',
+            currency: 'USD'
         }
+
+        eventEmitter.on('currencyChanged', this.handleCurrencyChanged)
     }
 
     sort = (columnName) => {
@@ -36,25 +40,40 @@ class TableView extends React.Component {
         return _.orderBy(collection, columnName, order)
     }
 
-    // TODO: parameterize convertion currency, default USD for now
-    componentDidMount() {
-        // data processing
-        let response = query.getMarketCap({})
-        
-        let collection = response.Data.map(datum => {
-            let result = {}
-            Object.keys(columnMap).forEach(colName => {
-                result[colName] = _.get(datum, columnMap[colName])
+    handleCurrencyChanged = (currency) => {
+        if (currency && currency != this.state.currency) {
+            this.queryMarketCapData({
+                tsym: currency
+            }).then(data => {
+                this.setState({ data })
             })
-            return result
-        });
 
-        let data = {
-            collection,
-            columns: displayCols
         }
+    }
 
-        this.setState({ data })
+    queryMarketCapData = (options) => {
+        options = options || {}
+        return query.getMarketCap(options).then(response => {
+            let collection = response.Data.map(datum => {
+                let result = {}
+                Object.keys(columnMap).forEach(colName => {
+                    result[colName] = _.get(datum, columnMap[colName])
+                })
+                return result
+            });
+            
+            // return results
+            return {
+                collection,
+                columns: displayCols
+            }
+        })
+    }
+
+    componentDidMount() {
+        this.queryMarketCapData().then(data => {  
+            this.setState({ data })
+        })
     }
 
     render() {

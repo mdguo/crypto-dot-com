@@ -22,19 +22,19 @@ function network() {
         } = options
 
         // temporaryly return static data to save API calls
-        return data ? data.default : {};
+        // return data ? Promise.resolve(data.default) : Promise.resolve({});
 
-        // return XHR.get('/data/top/mktcapfull', {
-        //     params: {
-        //         limit,
-        //         page,
-        //         tsym
-        //     }
-        // }).then(response => {
-        //     return response
-        // }).catch(error => {
-        //     console.log(error)
-        // })
+        return XHR.get('/data/top/mktcapfull', {
+            params: {
+                limit,
+                page,
+                tsym
+            }
+        }).then(response => {
+            return response.data
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     function getMultiSymbols(options) {
@@ -52,7 +52,7 @@ function network() {
             }
         }).then(response => {
             console.log(response)
-            return response
+            return response.data
         }).catch(error => {
             console.log(error)
         });

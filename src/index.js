@@ -10,11 +10,13 @@ let opts = {
     limit: 15,
     tsyms: 'EUR'
 }
-console.log(query.getMarketCap(opts))
+// console.log(query.getMarketCap(opts))
 
-// TODO: for today, setup main datagrid
+// TODO: for today, setup main datagrid, done
+// TODO: hook up currency selector and add pagination
 // TODO: localStorage for tracked currency
 // TODO: email alerts
+// TODO: add client side caching to prevent API spam
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
