@@ -4,19 +4,11 @@ import './index.css';
 import './bootstrap.min.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import query from './helper/network'
 
-let opts = {
-    limit: 15,
-    tsyms: 'EUR'
-}
-// console.log(query.getMarketCap(opts))
-
-// TODO: for today, setup main datagrid, done
-// TODO: hook up currency selector and add pagination
+// TODO: add pagination
 // TODO: localStorage for tracked currency
-// TODO: email alerts
 // TODO: add client side caching to prevent API spam
+// TODO: email alerts, if time
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

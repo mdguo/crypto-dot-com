@@ -2,7 +2,7 @@ import React from 'react';
 import RowRenderer from './RowRenderer';
 import query from '../helper/network';
 import eventEmitter from '../helper/event';
-import { columnsMap, displayCols, cellAlign } from '../helper/collection';
+import { columnsMap, displayCols, dataCols, cellAlign } from '../helper/collection';
 import Table from 'react-bootstrap/Table';
 import _ from 'lodash';
 
@@ -15,10 +15,12 @@ class TableView extends React.Component {
                 columns: []
             },
             prevSort: '',
+            currPage: 0,
             currency: 'USD'
         }
 
         eventEmitter.on('currencyChanged', this.handleCurrencyChanged)
+        eventEmitter.on('paginate', this.handlePagination)
     }
 
     sort = (columnName) => {
@@ -48,8 +50,18 @@ class TableView extends React.Component {
                     currency
                 })
             })
-
         }
+    }
+
+    handlePagination = (page) => {
+        this.queryMarketCapData({
+            tsym: this.state.currency,
+            page
+        }).then(data => {
+            this.setState({
+                data
+            })
+        })
     }
 
     queryMarketCapData = (options) => {
@@ -81,11 +93,11 @@ class TableView extends React.Component {
     }
 
     render() {
-        let header = Object.keys(displayCols).map((col, idx) => {
+        let header = Object.keys(dataCols).map((col, idx) => {
             // col is the data key
             return <th key={idx} className={cellAlign[col]}
                 onClick={this.sort.bind(this, col)}>
-                {displayCols[col]}
+                {dataCols[col]}
             </th>
         })
 

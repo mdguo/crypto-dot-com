@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as data from './data.json'
+import * as pagedData from './mktcapfull.json'
 
 function network() {
     let XHR = axios.create({
@@ -11,12 +12,12 @@ function network() {
     })
 
     function getMarketCap(options) {
-        // limit: number of coins get back paginated by {page}
+        // limit: number of coins get back paginated by {page} MAX:100
         // page: pagination
         // tsyms: currency symbol to convert into
 
         let {
-            limit = 10,
+            limit = 50,
             page = 0,
             tsym
         } = options
@@ -26,19 +27,19 @@ function network() {
         }
 
         // temporaryly return static data to save API calls
-        // return data ? Promise.resolve(data.default) : Promise.resolve({});
+        return data ? Promise.resolve(pagedData.default) : Promise.resolve({});
 
-        return XHR.get('/data/top/mktcapfull', {
-            params: {
-                limit,
-                page,
-                tsym
-            }
-        }).then(response => {
-            return response.data
-        }).catch(error => {
-            console.log(error)
-        })
+        // return XHR.get('/data/top/mktcapfull', {
+        //     params: {
+        //         limit,
+        //         page,
+        //         tsym
+        //     }
+        // }).then(response => {
+        //     return response.data
+        // }).catch(error => {
+        //     console.log(error)
+        // })
     }
 
     function getMultiSymbols(options) {
