@@ -1,7 +1,6 @@
 import axios from 'axios'
-import * as data from './data.json'
-import * as pagedData from './mktcapfull.json'
-import * as multiSymbols from './pricemultifull.json'
+import * as pagedData from '../data/mktcapfull.json'
+import * as multiSymbols from '../data/pricemultifull.json'
 
 function network() {
     let XHR = axios.create({

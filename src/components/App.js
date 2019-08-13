@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from './components/Header';
-import TableView from './components/TableView';
-import Tracker from './components/Tracker';
-import LoadingModal from './components/LoadingModal';
+import Header from './Header';
+import TableView from './TableView';
+import Tracker from './Tracker';
+import LoadingModal from './LoadingModal';
 import { Route, BrowserRouter } from 'react-router-dom';
-import './App.css';
+import '../css/App.css';
 
 class App extends React.Component {
     render() {

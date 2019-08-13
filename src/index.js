@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import './bootstrap.min.css';
-import App from './App';
+import './css/index.css';
+import './css/bootstrap.min.css';
+import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
-// TODO: localStorage for tracked currency
 // TODO: add client side caching to prevent API spam
 // TODO: email alerts, if time
 
