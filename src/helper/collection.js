@@ -15,29 +15,35 @@ export let columnsMap = (currency) => {
     }
 }
 
-export let displayCols = {
-    short: 'Symbol',
-    name: 'Full Name',
-    price: 'Price',
-    supply: 'Supply',
-    market_cap: 'Market Cap',
-    volume_24h: 'Volume (24)'
-}
-
-export let dataCols = {
-    short: 'Symbol',
-    name: 'Full Name',
-    price_raw: 'Price',
-    supply_raw: 'Supply',
-    market_cap_raw: 'Market Cap',
-    volume_24h_raw: 'Volume (24)'
-}
-
-export let cellAlign = {
-    short: 'text-left',
-    name: 'text-left',
-    price: 'text-right',
-    supply: 'text-right',
-    market_cap: 'text-right',
-    volume_24h: 'text-right'
+export let columnsInfo = {
+    short: {
+        display: 'Symbol',
+        data: 'short',
+        className: 'text-left'
+    },
+    name: {
+        display: 'Full Name',
+        data: 'name',
+        className: 'text-left'
+    },
+    price: {
+        display: 'Price',
+        data: 'price_raw',
+        className: 'text-right'
+    },
+    supply: {
+        display: 'Supply',
+        data: 'supply_raw',
+        className: 'text-right'
+    },
+    market_cap: {
+        display: 'Market Cap',
+        data: 'market_cap_raw',
+        className: 'text-right'
+    },
+    volume_24h: {
+        display: 'Volume (24)',
+        data: 'volume_24h_raw',
+        className: 'text-right'
+    },
 }

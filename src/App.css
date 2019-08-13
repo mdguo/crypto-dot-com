@@ -34,9 +34,34 @@
 
 thead th {
   cursor: pointer;
+  position: relative;
   border-radius: 0.5rem;
 }
 
 thead th:hover {
   background-color: lightgrey;
+}
+
+th.sortable.text-right::after {
+  font-family: FontAwesome;
+  content: "\f0dc";
+  position: absolute;
+  left: 8px;
+  color: #999;
+}
+
+th.sortable.text-left::after {
+  font-family: FontAwesome;
+  content: "\f0dc";
+  position: absolute;
+  right: 8px;
+  color: #999;
+}
+
+th.sortable.asc::after {
+  content: "\f0d8";
+}
+
+th.sortable.desc::after {
+  content: "\f0d7";
 }

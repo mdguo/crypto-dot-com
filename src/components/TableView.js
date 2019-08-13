@@ -2,7 +2,7 @@ import React from 'react';
 import RowRenderer from './RowRenderer';
 import query from '../helper/network';
 import eventEmitter from '../helper/event';
-import { columnsMap, displayCols, dataCols, cellAlign } from '../helper/collection';
+import { columnsMap, columnsInfo } from '../helper/collection';
 import Table from 'react-bootstrap/Table';
 import _ from 'lodash';
 
@@ -11,10 +11,11 @@ class TableView extends React.Component {
         super(props)
         this.state = {
             data: {
-                collection: [],
-                columns: []
+                collection: []
             },
             prevSort: '',
+            sorting: '',
+            sortOrder: '',
             currPage: 0,
             currency: 'USD'
         }
@@ -27,7 +28,8 @@ class TableView extends React.Component {
         let newData = this.sortRows(this.state.data, columnName, this.state.prevSort)
         this.setState({
             data: newData,
-            prevSort: (this.state.prevSort == columnName) ? '' : columnName
+            prevSort: (this.state.prevSort == columnName) ? '' : columnName,
+            sorting: columnName
         })
     }
 
@@ -39,6 +41,7 @@ class TableView extends React.Component {
 
     sortCollection = (collection, columnName, ascending) => {
         let order = ascending ? 'asc' : 'desc'
+        this.setState({sortOrder: order})
         return _.orderBy(collection, columnName, order)
     }
 
@@ -82,8 +85,7 @@ class TableView extends React.Component {
             eventEmitter.emit('dataLoaded', {})
             // return results
             return {
-                collection,
-                columns: displayCols
+                collection
             }
         })
     }
@@ -95,16 +97,26 @@ class TableView extends React.Component {
     }
 
     render() {
-        let header = Object.keys(dataCols).map((col, idx) => {
-            // col is the data key
-            return <th key={idx} className={cellAlign[col]}
-                onClick={this.sort.bind(this, col)}>
-                {dataCols[col]}
+        let {sorting, sortOrder} = this.state
+
+        let header = Object.keys(columnsInfo).map((col, idx) => {
+            let sortClass = ' sortable'
+            if(sorting && sorting === columnsInfo[col].data) {
+                if(sortOrder === 'desc') {
+                    sortClass += ' desc'
+                } else {
+                    sortClass += ' asc'
+                }
+            }
+
+            return <th key={idx} className={columnsInfo[col].className + sortClass}
+                onClick={this.sort.bind(this, columnsInfo[col].data)}>
+                {columnsInfo[col].display}
             </th>
         })
 
         return (<div>
-            <Table striped>
+            <Table striped bordered>
                 <thead>
                     <tr>
                         <th>#</th>
