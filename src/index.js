@@ -5,7 +5,6 @@ import './bootstrap.min.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-// TODO: add pagination
 // TODO: localStorage for tracked currency
 // TODO: add client side caching to prevent API spam
 // TODO: email alerts, if time

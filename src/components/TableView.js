@@ -67,6 +67,7 @@ class TableView extends React.Component {
     queryMarketCapData = (options) => {
         options = options || {}
         let { tsym } = options
+        eventEmitter.emit('dataQuerying', {})
         return query.getMarketCap(options).then(response => {
             // rebuild column mapping based on currency
             let columnMap = columnsMap(tsym)
@@ -78,6 +79,7 @@ class TableView extends React.Component {
                 return result
             });
             
+            eventEmitter.emit('dataLoaded', {})
             // return results
             return {
                 collection,
