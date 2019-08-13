@@ -42,9 +42,9 @@ class Row extends React.Component {
             </td>
         })
 
-        return (<tr>
-            <td>{this.props.rank+1}</td>
-            {cells}
+        let {isTracker} = this.props
+
+        let tracker = !isTracker ? (
             <td>
                 <Button 
                     variant="outline-secondary" 
@@ -59,6 +59,12 @@ class Row extends React.Component {
                     Untrack
                 </Button>
             </td>
+        ) : <td></td>
+
+        return (<tr>
+            <td>{this.props.rank+1}</td>
+            {cells}
+            {tracker}
         </tr>)
     }
 }

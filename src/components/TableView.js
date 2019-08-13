@@ -1,5 +1,5 @@
 import React from 'react';
-import RowRenderer from './RowRenderer';
+import RowsRenderer from './RowsRenderer';
 import query from '../helper/network';
 import eventEmitter from '../helper/event';
 import { columnsMap, columnsInfo, multiSymbolsMap } from '../helper/collection';
@@ -125,7 +125,10 @@ class TableView extends React.Component {
                 this.setState({ data })
             })
         } else {
-            this.queryMarketCapData({tsym: this.state.currency}).then(data => {  
+            this.queryMarketCapData({
+                limit: 50,
+                tsym: this.state.currency
+            }).then(data => {  
                 this.setState({ data })
             })
         }
@@ -160,7 +163,7 @@ class TableView extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                    <RowRenderer collection={this.state.data.collection} />
+                    <RowsRenderer collection={this.state.data.collection} isTracker={this.props.isTracker}/>
                 </tbody>
             </Table>
         </div>)
