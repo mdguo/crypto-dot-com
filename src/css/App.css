@@ -65,3 +65,7 @@ th.sortable.asc::after {
 th.sortable.desc::after {
   content: "\f0d7";
 }
+
+td.number {
+  font-family: 'droid_serifregular';
+}

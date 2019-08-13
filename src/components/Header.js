@@ -5,7 +5,7 @@ import eventEmitter from '../helper/event';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Pagination from 'react-bootstrap/Pagination'
 
-// header, contains currency selector, and probably pagination
+// header, contains currency selector, nav, and pagination
 class Header extends React.Component {
     constructor(props) {
         super(props)

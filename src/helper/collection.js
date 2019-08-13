@@ -30,22 +30,22 @@ export let columnsInfo = {
     price: {
         display: 'Price',
         data: 'price_raw',
-        className: 'text-right'
+        className: 'text-right number'
     },
     supply: {
         display: 'Supply',
         data: 'supply_raw',
-        className: 'text-right'
+        className: 'text-right number'
     },
     market_cap: {
         display: 'Market Cap',
         data: 'market_cap_raw',
-        className: 'text-right'
+        className: 'text-right number'
     },
     volume_24h: {
         display: 'Volume (24)',
         data: 'volume_24h_raw',
-        className: 'text-right'
+        className: 'text-right number'
     },
 }
 
