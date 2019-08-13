@@ -1,11 +1,11 @@
 import _ from 'lodash'
 
-function storage() {
-    function get(key) {
+function storage(key) {
+    function get() {
         return localStorage.getItem(key)
     }
 
-    function set(key, val) {
+    function set(val) {
         if (!_.isString(val)) {
             throw new Error('Tried to set non-string in localStorage!')
         }
@@ -13,7 +13,7 @@ function storage() {
         localStorage.setItem(key, val)
     }
 
-    function remove(key) {
+    function remove() {
         localStorage.removeItem(key)
     }
 

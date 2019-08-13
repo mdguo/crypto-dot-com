@@ -2,7 +2,7 @@ import React from 'react';
 import RowRenderer from './RowRenderer';
 import query from '../helper/network';
 import eventEmitter from '../helper/event';
-import { columnsMap, columnsInfo } from '../helper/collection';
+import { columnsMap, columnsInfo, multiSymbolsMap } from '../helper/collection';
 import Table from 'react-bootstrap/Table';
 import _ from 'lodash';
 
@@ -90,10 +90,45 @@ class TableView extends React.Component {
         })
     }
 
-    componentDidMount() {
-        this.queryMarketCapData({tsym: this.state.currency}).then(data => {  
-            this.setState({ data })
+    queryMultiSymbolsData = (options) => {
+        options = options || {}
+        let { fsyms, tsyms } = options
+        eventEmitter.emit('dataQuerying', {})
+        return query.getMultiSymbols(options).then(response => {
+            // result response is not an array, need to determine total
+            // and build column mapping for each crypto currency
+            let collection = fsyms.split(',').map(fsym => {
+                let result = {}
+                let columnMap = multiSymbolsMap(fsym, tsyms)
+                Object.keys(columnMap).forEach(colName => {
+                    result[colName] = _.get(response, columnMap[colName])
+                })
+                return result
+            })
+            
+            eventEmitter.emit('dataLoaded', {})
+            
+            return {
+                collection
+            }
         })
+    }
+
+    componentDidMount() {
+        let {isTracker, trackList} = this.props
+        // determine if showing tracker list
+        if (isTracker) {
+            this.queryMultiSymbolsData({
+                fsyms: trackList,   // CSV
+                tsyms: this.state.currency
+            }).then(data => {
+                this.setState({ data })
+            })
+        } else {
+            this.queryMarketCapData({tsym: this.state.currency}).then(data => {  
+                this.setState({ data })
+            })
+        }
     }
 
     render() {
@@ -121,6 +156,7 @@ class TableView extends React.Component {
                     <tr>
                         <th>#</th>
                         {header}
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

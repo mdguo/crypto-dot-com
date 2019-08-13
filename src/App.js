@@ -17,8 +17,8 @@ class App extends React.Component {
                     <LoadingModal />
                 </div>
             </BrowserRouter>
-    )
-  }
+        )
+    }
 }
 
 export default App;
