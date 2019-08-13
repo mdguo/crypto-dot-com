@@ -2,6 +2,7 @@ import React from 'react';
 import { columnsInfo } from '../helper/collection';
 import storage from '../helper/storage';
 import Button from 'react-bootstrap/Button';
+import eventEmitter from '../helper/event';
 import _ from 'lodash';
 
 let trackerStorage = storage("tracked_currencies")
@@ -18,7 +19,7 @@ class Row extends React.Component {
             if (tracked.indexOf(symbol) < 0 && tracked.length <= 10) {
                 tracked.push(symbol)
                 trackerStorage.set(tracked.join())
-                console.log('Added coin to tracked list.')
+                eventEmitter.emit('trackerAdded', 'Added coin to tracked list.')
             }
         }
     }
@@ -29,7 +30,7 @@ class Row extends React.Component {
             if (tracked.indexOf(symbol) >= 0) {
                 _.pull(tracked, symbol)
                 trackerStorage.set(tracked.join())
-                console.log('Removed coin from tracked list.')
+                eventEmitter.emit('trackerRemoved', 'Removed coin from tracked list.')
             }
 
         }

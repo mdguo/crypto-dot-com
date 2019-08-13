@@ -3,6 +3,8 @@ import Header from './Header';
 import TableView from './TableView';
 import Tracker from './Tracker';
 import LoadingModal from './LoadingModal';
+import TrackingModal from './TrackingModal';
+import Container from 'react-bootstrap/Container';
 import { Route, BrowserRouter } from 'react-router-dom';
 import '../css/App.css';
 
@@ -11,10 +13,13 @@ class App extends React.Component {
         return (
             <BrowserRouter>
                 <div className="App">
-                    <Header />
-                    <Route exact path="/" component={TableView} />
-                    <Route path="/tracker" component={Tracker} />
-                    <LoadingModal />
+                    <Container>
+                        <Header />
+                        <Route exact path="/" component={TableView} />
+                        <Route path="/tracker" component={Tracker} />
+                        <LoadingModal />
+                        <TrackingModal />
+                    </Container>
                 </div>
             </BrowserRouter>
         )

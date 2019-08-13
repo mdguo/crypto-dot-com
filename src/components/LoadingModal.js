@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
+import Spinner from 'react-bootstrap/Spinner';
 import eventEmitter from '../helper/event';
 
 class LoadingModal extends React.Component {
@@ -26,7 +27,11 @@ class LoadingModal extends React.Component {
 
         return (
             <Modal show={show} onHide={this.handleClose} centered={true} keyboard={false}>
-                <Modal.Body>Loading...</Modal.Body>
+                <Modal.Body>
+                <Spinner animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </Spinner>
+                </Modal.Body>
             </Modal>
         )
     }

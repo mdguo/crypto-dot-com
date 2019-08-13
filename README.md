@@ -3,9 +3,11 @@
 ## Usage
 This app uses NodeJS v6.9.0
 
-To run
-`npm install`, and
-`npm run start`
+To run, configure the API key, then run
+
+`$ npm install`
+
+`$ npm run start`
 
 ## API Key
 API key is stored in an environment file. It's used to access CryptoCompare APIs. The ".env" file should be placed in the top level directory.
@@ -43,4 +45,4 @@ Since the app is not too big, I decided to only split code in two directories. A
 
 `Storage.js` contains a wrapper module for accessing the browser’s localStorage
 
-PS: I did not test it on IE.
+PS: I did not test on IE.
