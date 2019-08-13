@@ -1,3 +1,4 @@
+// MarketCap
 export let columnsMap = (currency) => {
     return {
         token: `DISPLAY.${currency}.FROMSYMBOL`,    // cryptocurrency symbol
@@ -46,4 +47,20 @@ export let columnsInfo = {
         data: 'volume_24h_raw',
         className: 'text-right'
     },
+}
+
+// Multiple Symbols
+export let multiSymbolsMap = (fsym, tsym) => {
+    return {
+        short: `RAW.${fsym}.${tsym}.FROMSYMBOL`,
+        name: `RAW.${fsym}.${tsym}.FROMSYMBOL`,
+        price: `DISPLAY.${fsym}.${tsym}.PRICE`,
+        supply: `DISPLAY.${fsym}.${tsym}.SUPPLY`,
+        market_cap: `DISPLAY.${fsym}.${tsym}.MKTCAP`,
+        volume_24h: `DISPLAY.${fsym}.${tsym}.TOTALVOLUME24HTO`,
+        price_raw: `RAW.${fsym}.${tsym}.PRICE`,
+        supply_raw: `RAW.${fsym}.${tsym}.SUPPLY`,
+        market_cap_raw: `RAW.${fsym}.${tsym}.MKTCAP`,
+        volume_24h_raw: `RAW.${fsym}.${tsym}.TOTALVOLUME24HTO`
+    }
 }

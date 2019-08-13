@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav'
 import eventEmitter from '../helper/event';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Pagination from 'react-bootstrap/Pagination'
@@ -53,7 +54,8 @@ class Header extends React.Component {
 
         return (
             <Navbar>
-                <Navbar.Brand href="/">Crypto</Navbar.Brand>
+                <Nav.Link href="/" eventKey="home">Home</Nav.Link>
+                <Nav.Link href="/tracker" eventKey="tracker">Tracker</Nav.Link>
                 <NavDropdown title="Currency" id="basic-nav-dropdown">
                     {dropDownItems}
                 </NavDropdown>

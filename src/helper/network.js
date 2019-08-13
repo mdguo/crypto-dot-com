@@ -1,6 +1,7 @@
 import axios from 'axios'
 import * as data from './data.json'
 import * as pagedData from './mktcapfull.json'
+import * as multiSymbols from './pricemultifull.json'
 
 function network() {
     let XHR = axios.create({
@@ -27,7 +28,7 @@ function network() {
         }
 
         // temporaryly return static data to save API calls
-        return data ? Promise.resolve(pagedData.default) : Promise.resolve({});
+        return Promise.resolve(pagedData.default)
 
         // return XHR.get('/data/top/mktcapfull', {
         //     params: {
@@ -47,20 +48,22 @@ function network() {
         // tsyms: Comma separated cryptocurrency symbols list to convert into
         let {
             fsyms,
-            tsyms = 'USD'
+            tsyms = 'USD'   // force to only one currency for now
         } = options
 
-        return XHR.get('/data/pricemultifull', {
-            params: {
-                fsyms,
-                tsyms
-            }
-        }).then(response => {
-            console.log(response)
-            return response.data
-        }).catch(error => {
-            console.log(error)
-        });
+        return Promise.resolve(multiSymbols.default)
+
+        // return XHR.get('/data/pricemultifull', {
+        //     params: {
+        //         fsyms,
+        //         tsyms
+        //     }
+        // }).then(response => {
+        //     console.log(response)
+        //     return response.data
+        // }).catch(error => {
+        //     console.log(error)
+        // });
     }
 
     return {
