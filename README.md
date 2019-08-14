@@ -10,7 +10,7 @@ To run, configure the API key, then run
 `$ npm run start`
 
 ## API Key
-API key is stored in an environment file. It's used to access CryptoCompare APIs. The ".env" file should be placed in the top level directory.
+API key is stored in an environment file. It's used to access CryptoCompare APIs. The ".env" file should be placed in the top level directory. The variable needs to be named `REACT_APP_APIKEY`
 
 ## Functionality
 This is a simple web app to show market capitalization for cryptocurrencies.
