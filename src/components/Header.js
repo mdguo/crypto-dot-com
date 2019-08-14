@@ -3,7 +3,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
 import eventEmitter from '../helper/event';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import Pagination from 'react-bootstrap/Pagination'
+import Pagination from 'react-bootstrap/Pagination';
+import {withRouter} from 'react-router-dom';
 
 // header, contains currency selector, nav, and pagination
 class Header extends React.Component {
@@ -16,6 +17,7 @@ class Header extends React.Component {
     }
 
     onCurrencyChanged = (currency) => {
+        console.log(this.props.location)
         if (currency != this.state.currency) {
             this.setState({ currency })
             // console.log('currency changed: ' + currency)
@@ -34,6 +36,7 @@ class Header extends React.Component {
 
     render() {
         let currencyList = ['USD', 'EUR', 'HKD', 'CNY']
+        let { pathname } = this.props.location
         let dropDownItems = currencyList.map((currency, idx) => {
             return <NavDropdown.Item 
                 key={idx}
@@ -43,14 +46,14 @@ class Header extends React.Component {
             </NavDropdown.Item>
         })
 
-        let pager = (
+        let pager = pathname !== '/tracker' ? (
             <Navbar.Collapse className="justify-content-end">
                 <Pagination>
                     <Pagination.Item disabled={this.state.currPage === 0} onClick={this.onPaginate.bind(this, -1)}>{'Previous 50'}</Pagination.Item>
                     <Pagination.Item onClick={this.onPaginate.bind(this, 1)}>{'Next 50'}</Pagination.Item>
                 </Pagination>
             </Navbar.Collapse>
-        )
+        ) : <span></span>
 
         return (
             <Navbar>
@@ -65,4 +68,4 @@ class Header extends React.Component {
     }
 }
 
-export default Header;
+export default withRouter(Header);

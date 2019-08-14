@@ -71,3 +71,7 @@ th.sortable.desc::after {
 td.number {
   font-family: 'droid_serifregular';
 }
+
+.pagination {
+  margin: 0.5rem;
+}
