@@ -6,9 +6,6 @@ import './css/bootstrap.min.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
-// TODO: add client side caching to prevent API spam
-// TODO: email alerts, if time
-
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

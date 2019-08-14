@@ -1,4 +1,5 @@
 import axios from 'axios'
+// static data
 import * as pagedData from '../data/mktcapfull.json'
 import * as multiSymbols from '../data/pricemultifull.json'
 
@@ -27,19 +28,19 @@ function network() {
         }
 
         // temporaryly return static data to save API calls
-        return Promise.resolve(pagedData.default)
+        // return Promise.resolve(pagedData.default)
 
-        // return XHR.get('/data/top/mktcapfull', {
-        //     params: {
-        //         limit,
-        //         page,
-        //         tsym
-        //     }
-        // }).then(response => {
-        //     return response.data
-        // }).catch(error => {
-        //     console.log(error)
-        // })
+        return XHR.get('/data/top/mktcapfull', {
+            params: {
+                limit,
+                page,
+                tsym
+            }
+        }).then(response => {
+            return response.data
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     function getMultiSymbols(options) {
@@ -50,19 +51,19 @@ function network() {
             tsyms = 'USD'   // force to only one currency for now
         } = options
 
-        return Promise.resolve(multiSymbols.default)
+        // return Promise.resolve(multiSymbols.default)
 
-        // return XHR.get('/data/pricemultifull', {
-        //     params: {
-        //         fsyms,
-        //         tsyms
-        //     }
-        // }).then(response => {
-        //     console.log(response)
-        //     return response.data
-        // }).catch(error => {
-        //     console.log(error)
-        // });
+        return XHR.get('/data/pricemultifull', {
+            params: {
+                fsyms,
+                tsyms
+            }
+        }).then(response => {
+            console.log(response)
+            return response.data
+        }).catch(error => {
+            console.log(error)
+        });
     }
 
     return {
